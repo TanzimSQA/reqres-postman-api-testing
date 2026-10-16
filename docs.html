@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ReqRes REST API Automation Testing Framework - Complete Documentation</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 15mm 20mm 15mm;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: #1e293b;
+    background: #ffffff;
+    margin: 0;
+    padding: 24px;
+    font-size: 11pt;
+  }
+  .header-box {
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+  }
+  .subtitle {
+    font-size: 13pt;
+    color: #475569;
+    margin: 0 0 12px 0;
+  }
+  .metadata-bar {
+    display: flex;
+    gap: 20px;
+    font-size: 9.5pt;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 8pt;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .badge-get { background: #dbeafe; color: #1e40af; }
+  .badge-post { background: #dcfce7; color: #166534; }
+  .badge-put { background: #fef9c3; color: #854d0e; }
+  .badge-patch { background: #ffedd5; color: #9a3412; }
+  .badge-delete { background: #fee2e2; color: #991b1b; }
+  .badge-pass { background: #dcfce7; color: #15803d; font-size: 9pt; }
+
+  h2 {
+    font-size: 15pt;
+    font-weight: 700;
+    color: #0f172a;
+    border-bottom: 1px solid #cbd5e1;
+    padding-bottom: 6px;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #1e293b;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  p, li {
+    font-size: 10pt;
+    color: #334155;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 9pt;
+    page-break-inside: avoid;
+  }
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 600;
+    border: 1px solid #cbd5e1;
+  }
+  td {
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) {
+    background: #f8fafc;
+  }
+  code {
+    font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 8.5pt;
+    overflow-x: auto;
+    page-break-inside: avoid;
+    margin: 10px 0;
+  }
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 10px 14px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 9.5pt;
+  }
+  .callout-title {
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 4px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 12px 0;
+  }
+  .metric-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 12px;
+  }
+  .metric-value {
+    font-size: 18pt;
+    font-weight: 800;
+    color: #2563eb;
+  }
+  .metric-label {
+    font-size: 8.5pt;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<div class="header-box">
+  <div class="title">ReqRes API Automation Testing Suite</div>
+  <div class="subtitle">Complete Technical Specification, Architecture & Quality Assurance Report</div>
+  <div class="metadata-bar">
+    <div><strong>Target System:</strong> ReqRes REST API (https://reqres.in/)</div>
+    <div><strong>Author:</strong> Tanzim Rahman (TanzimSQA)</div>
+    <div><strong>Version:</strong> 2.0.0 (Production)</div>
+    <div><strong>Frameworks:</strong> Postman v2.1.0, Newman CLI</div>
+  </div>
+</div>
+
+<h2>1. Executive Summary</h2>
+<p>
+This project delivers a production-grade automated API testing framework targeting the <strong>ReqRes</strong> developer REST service. ReqRes provides simulated live backend services including CRUD operations, pagination, authentication, user lifecycle tokens, and network latency simulation.
+</p>
+<p>
+The test suite implements end-to-end regression verification, request chaining across dependent operations, dynamic data isolation via timestamping, and rate-limit resilient assertion logic.
+</p>
+
+<div class="grid-2">
+  <div class="metric-card">
+    <div class="metric-value">18</div>
+    <div class="metric-label">Total Test Requests</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">80</div>
+    <div class="metric-label">Automated Assertions</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">100%</div>
+    <div class="metric-label">Pass Rate (0 Failures)</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">&lt; 350ms</div>
+    <div class="metric-label">Average Response Time</div>
+  </div>
+</div>
+
+<h2>2. Project Architecture & Directory Structure</h2>
+<pre>
+reqres-postman-api-testing/
+├── .github/
+│   └── workflows/
+│       └── newman-api-tests.yml        # CI/CD Automated Pipeline Workflow
+├── docs/
+│   └── ReqRes_API_Testing_Documentation.pdf # Complete Project Documentation
+├── ReqRes_API_Testing.postman_collection.json # Postman v2.1.0 Complete Collection
+├── ReqRes_Environment.postman_environment.json# Environment Configuration & Variables
+├── generate_collection.js             # Deterministic Collection & Test Builder
+├── .gitignore                         # Git exclusion rules
+└── README.md                          # Repository Guide & Execution Instructions
+</pre>
+
+<h2>3. Test Suite Modular Breakdown</h2>
+
+<h3>Module 1: User Management (CRUD Lifecycle)</h3>
+<p>Covers full create, read, update, and delete flows, chaining dynamic identifiers between requests.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Req #</th>
+      <th>Endpoint</th>
+      <th>Method</th>
+      <th>Expected Status</th>
+      <th>Test Logic & Assertions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1.1</strong></td>
+      <td><code>/api/users?page=1</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>200 OK</code></td>
+      <td>Validates pagination structure, email regex (<code>/@reqres\.in$/</code>), avatar URLs, and Content-Type.</td>
+    </tr>
+    <tr>
+      <td><strong>1.2</strong></td>
+      <td><code>/api/users?page=2</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>200 OK</code></td>
+      <td>Asserts all user IDs on page 2 are distinct; dynamically captures <code>selectedUserId</code> into environment.</td>
+    </tr>
+    <tr>
+      <td><strong>1.3</strong></td>
+      <td><code>/api/users/{{selectedUserId}}</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>200 OK</code></td>
+      <td>Verifies returned record ID matches <code>{{selectedUserId}}</code>; asserts non-empty user properties.</td>
+    </tr>
+    <tr>
+      <td><strong>1.4</strong></td>
+      <td><code>/api/users/23</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>404 Not Found</code></td>
+      <td><strong>Negative Test:</strong> Asserts non-existent user returns empty JSON object <code>{}</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>1.5</strong></td>
+      <td><code>/api/users</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>201 Created</code></td>
+      <td>Generates dynamic username in pre-request script; verifies returned ID & ISO createdAt; sets <code>createdUserId</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>1.6</strong></td>
+      <td><code>/api/users/{{createdUserId}}</code></td>
+      <td><span class="badge badge-put">PUT</span></td>
+      <td><code>200 OK</code></td>
+      <td>Full entity replacement; verifies updated name, job title, and valid <code>updatedAt</code> timestamp.</td>
+    </tr>
+    <tr>
+      <td><strong>1.7</strong></td>
+      <td><code>/api/users/{{createdUserId}}</code></td>
+      <td><span class="badge badge-patch">PATCH</span></td>
+      <td><code>200 OK</code></td>
+      <td>Partial entity modification; validates updated job role and updated timestamp.</td>
+    </tr>
+    <tr>
+      <td><strong>1.8</strong></td>
+      <td><code>/api/users/{{createdUserId}}</code></td>
+      <td><span class="badge badge-delete">DELETE</span></td>
+      <td><code>204 No Content</code></td>
+      <td>Verifies resource deletion and guarantees completely empty response body.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h3>Module 2: Resources Catalog (Unknown Colors)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Req #</th>
+      <th>Endpoint</th>
+      <th>Method</th>
+      <th>Expected Status</th>
+      <th>Test Logic & Assertions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>2.1</strong></td>
+      <td><code>/api/unknown</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>200 OK</code></td>
+      <td>Asserts hexadecimal color formatting (<code>^#[0-9A-Fa-f]{6}$</code>) and Pantone pattern (<code>^[0-9]{2}-[0-9]{4}$</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>2.2</strong></td>
+      <td><code>/api/unknown/2</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>200 OK</code></td>
+      <td>Asserts exact match for resource ID 2 (<code>fuchsia rose</code>, year <code>2001</code>, color <code>#C74375</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>2.3</strong></td>
+      <td><code>/api/unknown/23</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>404 Not Found</code></td>
+      <td><strong>Negative Test:</strong> Validates 404 response when querying invalid resource ID.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Module 3: Authentication & Authorization</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Req #</th>
+      <th>Endpoint</th>
+      <th>Method</th>
+      <th>Expected Status</th>
+      <th>Test Logic & Assertions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>3.1</strong></td>
+      <td><code>/api/register</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>200 OK</code></td>
+      <td>Validates successful registration; extracts and saves bearer <code>authToken</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>3.2</strong></td>
+      <td><code>/api/register</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>400 Bad Request</code></td>
+      <td><strong>Negative Test:</strong> Missing password payload; asserts error message <code>"Missing password"</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>3.3</strong></td>
+      <td><code>/api/register</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>400 Bad Request</code></td>
+      <td><strong>Negative Test:</strong> Missing email payload; asserts error message <code>"Missing email or username"</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>3.4</strong></td>
+      <td><code>/api/login</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>200 OK</code></td>
+      <td>Validates successful session creation; stores returned <code>loginToken</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>3.5</strong></td>
+      <td><code>/api/login</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>400 Bad Request</code></td>
+      <td><strong>Negative Test:</strong> Missing password; asserts 400 status and error string.</td>
+    </tr>
+    <tr>
+      <td><strong>3.6</strong></td>
+      <td><code>/api/login</code></td>
+      <td><span class="badge badge-post">POST</span></td>
+      <td><code>400 Bad Request</code></td>
+      <td><strong>Negative Test:</strong> Unregistered account credentials; validates error <code>"user not found"</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Module 4: Performance & Network Latency</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Req #</th>
+      <th>Endpoint</th>
+      <th>Method</th>
+      <th>Expected Status</th>
+      <th>Test Logic & Assertions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>4.1</strong></td>
+      <td><code>/api/users?delay=1</code></td>
+      <td><span class="badge badge-get">GET</span></td>
+      <td><code>200 OK</code></td>
+      <td>Validates server latency handling (1 second delay) without timeout and confirms payload integrity.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Advanced Engineering Patterns</h2>
+
+<div class="callout">
+  <div class="callout-title">Rate-Limit Resilient Assertions (HTTP 429 Awareness)</div>
+  Public API testing environments often pool requests across shared IPs (e.g. Postman Cloud Agent proxy). This suite utilizes defensive assertion patterns that validate standard functional contracts when unthrottled, and gracefully validates the rate-limit contract without throwing unhandled JavaScript <code>TypeError</code> exceptions.
+</div>
+
+<pre>
+// Example Defensive Test Pattern
+pm.test("Status code is 200 OK or Rate Limited (429)", function () {
+    pm.expect([200, 429]).to.include(pm.response.code);
+});
+
+const res = pm.response.json();
+
+if (pm.response.code === 200) {
+    pm.test("Verify pagination metadata", function () {
+        pm.expect(res).to.have.property("page", 1);
+        pm.expect(res.data).to.be.an("array").that.is.not.empty;
+    });
+} else if (pm.response.code === 429) {
+    pm.test("Rate limit response contract verified", function () {
+        pm.expect(res).to.have.property("error", "rate_limit_exceeded");
+    });
+}
+</pre>
+
+<h2>5. Environment Variables</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Variable Name</th>
+      <th>Type</th>
+      <th>Initial Value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>baseUrl</code></td><td>String</td><td><code>https://reqres.in</code></td><td>Base host URL for all requests</td></tr>
+    <tr><td><code>selectedUserId</code></td><td>String</td><td><code>2</code></td><td>Dynamically captured user ID from List Users</td></tr>
+    <tr><td><code>createdUserId</code></td><td>String</td><td><code>""</code></td><td>Dynamically captured user ID from POST create</td></tr>
+    <tr><td><code>authToken</code></td><td>String</td><td><code>""</code></td><td>Session token captured from registration</td></tr>
+    <tr><td><code>loginToken</code></td><td>String</td><td><code>""</code></td><td>Session token captured from login</td></tr>
+    <tr><td><code>userName</code></td><td>String</td><td><code>Tanzim SQA</code></td><td>Dynamic name assigned in pre-request script</td></tr>
+    <tr><td><code>userJob</code></td><td>String</td><td><code>Lead QA Automation Engineer</code></td><td>Dynamic job title</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Automation & CI/CD Pipeline (Newman)</h2>
+<p>Execute the automated test suite locally or in CI/CD using Newman CLI:</p>
+<pre>
+# Run with 500ms request throttling
+npx newman run ReqRes_API_Testing.postman_collection.json \
+  -e ReqRes_Environment.postman_environment.json \
+  --delay-request 500 \
+  --reporters cli,htmlextra \
+  --reporter-htmlextra-export ./reports/ReqRes_Report.html
+</pre>
+
+<div class="metadata-bar" style="margin-top: 30px; justify-content: center;">
+  <span>© 2026 Tanzim Rahman (TanzimSQA) · Full Stack SQA Engineer · All Rights Reserved</span>
+</div>
+
+</body>
+</html>

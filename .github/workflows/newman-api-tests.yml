@@ -1,0 +1,41 @@
+name: Newman ReqRes API Automation Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Newman & Reporters
+        run: |
+          npm install -g newman newman-reporter-htmlextra
+
+      - name: Run Postman Collection Tests
+        run: |
+          mkdir -p reports
+          newman run ReqRes_API_Testing.postman_collection.json \
+            -e ReqRes_Environment.postman_environment.json \
+            --delay-request 500 \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export ./reports/newman-report.html
+
+      - name: Upload Test Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-html-test-report
+          path: ./reports/newman-report.html
