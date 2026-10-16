@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Production-grade REST API automation testing suite for ReqRes (https://reqres.in/) built with Postman, Newman CLI, dynamic variable chaining, and comprehensive assertions.",
   "scripts": {
-    "test": "newman run ReqRes_API_Testing.postman_collection.json -e ReqRes_Environment.postman_environment.json --delay-request 500",
-    "test:report": "newman run ReqRes_API_Testing.postman_collection.json -e ReqRes_Environment.postman_environment.json --delay-request 500 -r cli,htmlextra --reporter-htmlextra-export ./reports/ReqRes_Report.html",
+    "test": "npx newman run ReqRes_API_Testing.postman_collection.json -e ReqRes_Environment.postman_environment.json --delay-request 500",
+    "test:report": "npx newman run ReqRes_API_Testing.postman_collection.json -e ReqRes_Environment.postman_environment.json --delay-request 500 -r cli,htmlextra --reporter-htmlextra-export ./reports/ReqRes_Report.html",
     "generate:collection": "node generate_collection.js"
   },
   "keywords": [

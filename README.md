@@ -1,166 +1,163 @@
-# 🚀 ReqRes REST API Automation Testing Project
+# ReqRes API Test Automation Suite
 
-[![Newman API Tests](https://img.shields.io/github/actions/workflow/status/TanzimSQA/reqres-postman-api-testing/newman-api-tests.yml?branch=main&label=Newman%20API%20Tests&style=for-the-badge&logo=githubactions)](https://github.com/TanzimSQA/reqres-postman-api-testing/actions)
-[![Postman Collection](https://img.shields.io/badge/Postman-v2.1.0-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](./ReqRes_API_Testing.postman_collection.json)
-[![Documentation PDF](https://img.shields.io/badge/Full%20Documentation-PDF-E53935?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](./ReqRes_API_Testing_Documentation.pdf)
-[![Node.js](https://img.shields.io/badge/Node.js-v20%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](./LICENSE)
+[![Newman API Tests](https://img.shields.io/github/actions/workflow/status/TanzimSQA/reqres-postman-api-testing/newman-api-tests.yml?branch=main&label=Newman%20Tests&logo=githubactions)](https://github.com/TanzimSQA/reqres-postman-api-testing/actions)
+[![Postman Collection](https://img.shields.io/badge/Postman-v2.1.0-orange?logo=postman)](./ReqRes_API_Testing.postman_collection.json)
+[![Documentation PDF](https://img.shields.io/badge/Documentation-PDF-red?logo=adobeacrobatreader)](./ReqRes_API_Testing_Documentation.pdf)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
----
+Automated REST API test suite for the [ReqRes](https://reqres.in/) mock API service, built using Postman and Newman CLI with automated CI/CD runs via GitHub Actions.
 
-## 📑 Full Project Documentation PDF
-> 📕 **Download or View Full Documentation**:  
-> You can download or view the comprehensive, professionally formatted PDF report:  
-> 👉 [**`ReqRes_API_Testing_Documentation.pdf`**](./ReqRes_API_Testing_Documentation.pdf)  
-> *(Covers complete test strategy, folder architecture, 80+ assertion matrix, dynamic parameter chaining, CI/CD setup, and debugging guide)*
+I created this project to demonstrate how I approach API automation testing for real-world applications: setting up end-to-end CRUD flows, chaining dynamic data between requests, validating response schemas and edge cases, and running regression tests headlessly in CI/CD.
 
 ---
 
-## 📌 Project Overview
-A production-grade REST API automation testing suite built for **[ReqRes](https://reqres.in/)** (`https://reqres.in`), designed for seamless execution across **Postman (Web on Chrome & Desktop App)** and automated CI/CD pipelines via **Newman CLI**.
+## Project Documentation
 
-### 🌟 Highlights
-- **18 Automated Test Cases** covering 100% of ReqRes REST endpoints.
-- **80+ Granular Assertions** verifying HTTP status codes, JSON schema integrity, response SLAs, header security, and business payloads.
-- **Dynamic Variable Chaining**:
-  - Dynamically extracts `id` from user lists and propagates into subsequent requests.
-  - Dynamically isolates test usernames with timestamps (`Tanzim_Tester_<timestamp>`).
-  - Captures `createdUserId` from `POST /api/users` and passes it to `PUT`, `PATCH`, and `DELETE`.
-  - Captures registration and login session tokens (`authToken`, `loginToken`).
-- **Resilient Rate-Limit Handling**: Defensive test assertions handle both standard responses and Cloud Agent rate limiting (`429 Too Many Requests`).
-- **CI/CD Integrated**: Preconfigured GitHub Actions workflow runs Newman on every push and generates HTML report artifacts.
+A full PDF report covering the test strategy, endpoint matrix, assertion details, and test execution results is available here:
+
+👉 **[Download the Full Documentation PDF (ReqRes_API_Testing_Documentation.pdf)](./ReqRes_API_Testing_Documentation.pdf)**
 
 ---
 
-## 📂 Collection Architecture
+## What I Tested
+
+The suite covers 18 test cases organized into 4 logical modules:
 
 ```
-ReqRes API Testing Suite (Automated)/
-├── 📁 01 - User Management (CRUD)
-│   ├── 1.1 List Users - Page 1               [GET]    /api/users?page=1
-│   ├── 1.2 List Users - Page 2               [GET]    /api/users?page=2        (Extracts dynamic userId)
-│   ├── 1.3 Get Single User - Success         [GET]    /api/users/{{selectedUserId}}
-│   ├── 1.4 Get Single User - Not Found       [GET]    /api/users/23            (Negative Test: 404)
-│   ├── 1.5 Create User                       [POST]   /api/users               (Extracts createdUserId)
-│   ├── 1.6 Update User - Full Update         [PUT]    /api/users/{{createdUserId}}
-│   ├── 1.7 Partial Update User               [PATCH]  /api/users/{{createdUserId}}
-│   └── 1.8 Delete User                       [DELETE] /api/users/{{createdUserId}}
-├── 📁 02 - Resources (Unknown)
-│   ├── 2.1 List Resources                    [GET]    /api/unknown
-│   ├── 2.2 Get Single Resource - Success     [GET]    /api/unknown/2
-│   └── 2.3 Get Single Resource - Not Found   [GET]    /api/unknown/23          (Negative Test: 404)
-├── 📁 03 - Authentication & Authorization
-│   ├── 3.1 Register - Successful             [POST]   /api/register            (Extracts authToken)
-│   ├── 3.2 Register - Unsuccessful           [POST]   /api/register            (Missing Password: 400)
-│   ├── 3.3 Register - Unsuccessful           [POST]   /api/register            (Missing Email: 400)
-│   ├── 3.4 Login - Successful                [POST]   /api/login               (Extracts loginToken)
-│   ├── 3.5 Login - Unsuccessful              [POST]   /api/login               (Missing Password: 400)
-│   └── 3.6 Login - Unsuccessful              [POST]   /api/login               (User Not Found: 400)
-└── 📁 04 - Performance & Delayed Response
-    └── 4.1 Delayed Response Latency Check    [GET]    /api/users?delay=1
+ReqRes API Testing Suite/
+├── 01 - User Management (CRUD)
+│   ├── 1.1 List Users - Page 1
+│   ├── 1.2 List Users - Page 2 (extracts dynamic userId)
+│   ├── 1.3 Get Single User - Success
+│   ├── 1.4 Get Single User - Not Found (404 negative test)
+│   ├── 1.5 Create User (POST - extracts createdUserId)
+│   ├── 1.6 Update User - Full Update (PUT)
+│   ├── 1.7 Partial Update User (PATCH)
+│   └── 1.8 Delete User (DELETE)
+├── 02 - Resources (Unknown)
+│   ├── 2.1 List Resources
+│   ├── 2.2 Get Single Resource - Success
+│   └── 2.3 Get Single Resource - Not Found (404 negative test)
+├── 03 - Authentication & Authorization
+│   ├── 3.1 Register - Successful (extracts authToken)
+│   ├── 3.2 Register - Unsuccessful (missing password)
+│   ├── 3.3 Register - Unsuccessful (missing email)
+│   ├── 3.4 Login - Successful (extracts loginToken)
+│   ├── 3.5 Login - Unsuccessful (missing password)
+│   └── 3.6 Login - Unsuccessful (user not found)
+└── 04 - Performance & Delayed Response
+    └── 4.1 Delayed Response Latency Check (< 5000ms SLA)
 ```
 
 ---
 
-## 🧪 Summary of Test Endpoints & Coverage
+## Test Architecture & Key Highlights
 
-| Module | Method | Endpoint | Expected Status | Dynamic Action / Key Assertion |
-| :--- | :---: | :--- | :---: | :--- |
-| **Users** | `GET` | `/api/users?page=1` | `200 OK` | Validates pagination & user schema |
-| **Users** | `GET` | `/api/users?page=2` | `200 OK` | Extracts first user `id` → `selectedUserId` |
-| **Users** | `GET` | `/api/users/{{selectedUserId}}` | `200 OK` | Verifies matching `id`, email, and avatar |
-| **Users** | `GET` | `/api/users/23` | `404 Not Found` | Negative test: empty object validation |
-| **Users** | `POST` | `/api/users` | `201 Created` | Extracts `id` → `createdUserId`, timestamps |
-| **Users** | `PUT` | `/api/users/{{createdUserId}}` | `200 OK` | Verifies full update with `updatedAt` |
-| **Users** | `PATCH` | `/api/users/{{createdUserId}}` | `200 OK` | Verifies partial update |
-| **Users** | `DELETE` | `/api/users/{{createdUserId}}` | `204 No Content`| Validates empty response body |
-| **Resources** | `GET` | `/api/unknown` | `200 OK` | Hex color (`#RRGGBB`) & pantone validation |
-| **Resources** | `GET` | `/api/unknown/2` | `200 OK` | Specific resource schema validation |
-| **Resources** | `GET` | `/api/unknown/23` | `404 Not Found` | Negative test: 404 error handling |
-| **Auth** | `POST` | `/api/register` | `200 OK` | Captures token → `authToken` |
-| **Auth** | `POST` | `/api/register` | `400 Bad Request`| Negative test: `"Missing password"` |
-| **Auth** | `POST` | `/api/register` | `400 Bad Request`| Negative test: `"Missing email or username"` |
-| **Auth** | `POST` | `/api/login` | `200 OK` | Captures token → `loginToken` |
-| **Auth** | `POST` | `/api/login` | `400 Bad Request`| Negative test: `"Missing password"` |
-| **Auth** | `POST` | `/api/login` | `400 Bad Request`| Negative test: `"user not found"` |
-| **Latency** | `GET` | `/api/users?delay=1` | `200 OK` | SLA latency validation (`< 5000ms`) |
+### 1. Dynamic Request Chaining
+Rather than hardcoding static IDs, requests are chained dynamically:
+- **User ID Propagation**: `1.2 List Users - Page 2` parses the response body, extracts the first user's `id`, and sets `pm.environment.set("selectedUserId", id)`. This variable is then used in `1.3 Get Single User`.
+- **Isolated User Creation**: `1.5 Create User` generates a unique name using a timestamp (`Tanzim_Tester_${timestamp}`) to ensure data isolation. The response's generated `id` is saved as `createdUserId` and passed into `1.6 PUT`, `1.7 PATCH`, and `1.8 DELETE`.
+- **Token Capture**: Successful registration and login requests capture session tokens (`authToken` and `loginToken`) into environment variables for downstream authorization tests.
+
+### 2. Comprehensive Assertions
+Each endpoint includes:
+- Status code validations (`200 OK`, `201 Created`, `204 No Content`, `400 Bad Request`, `404 Not Found`).
+- Response payload structure and data types (numbers, strings, emails, URLs).
+- Pagination schema checks (`page`, `per_page`, `total`, `total_pages`, `data[]`).
+- Regex format checks for hex colors (`^#[0-9A-Fa-f]{6}$`) and Pantone codes (`^[0-9]{2}-[0-9]{4}$`).
+- Negative test message verification (`"Missing password"`, `"Missing email or username"`, `"user not found"`).
+- Global assertions at the collection level guaranteeing no `5xx` server errors and enforcing response time SLA limits.
+
+### 3. Real-World Problem Solving: Handling Public API Rate Limits
+When running test suites against public APIs like ReqRes from Postman Web (Chrome) or cloud agents, requests often share public IP pools that trigger rate limiting (`429 Too Many Requests`). 
+
+To make the suite resilient and prevent random test failures:
+- Assertions check `[200, 429]` (or corresponding status) and validate headers accordingly.
+- Test scripts only parse `data` arrays when present, preventing unhandled `TypeError` exceptions while still performing full assertions when valid data is returned.
+- A 500ms delay is configured between requests (`--delay-request 500`) to respect the server's rate limits.
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
-The project uses `ReqRes_Environment.postman_environment.json`:
+The project uses `ReqRes_Environment.postman_environment.json` with the following variables:
 
-| Variable Name | Default / Example Value | Scope & Purpose |
+| Variable | Default Value | Purpose |
 | :--- | :--- | :--- |
-| `baseUrl` | `https://reqres.in` | Global base API URL |
-| `selectedUserId` | `2` | Dynamic user ID extracted from Page 2 |
-| `createdUserId` | `""` | Dynamic user ID from POST create user |
-| `authToken` | `""` | Dynamic registration token |
-| `loginToken` | `""` | Dynamic login session token |
-| `userName` | `Tanzim SQA` | Dynamic test username |
-| `userJob` | `Lead QA Automation Engineer` | Dynamic test job title |
-| `validRegisterEmail` | `eve.holt@reqres.in` | Predefined mock registration email |
-| `validRegisterPassword` | `pistol` | Predefined mock registration password |
-| `validLoginEmail` | `eve.holt@reqres.in` | Predefined mock login email |
-| `validLoginPassword` | `cityslicka` | Predefined mock login password |
+| `baseUrl` | `https://reqres.in` | Base host for all API calls |
+| `selectedUserId` | `2` | User ID extracted from Page 2 and used in single-user queries |
+| `createdUserId` | `""` | User ID generated during POST user creation |
+| `authToken` | `""` | Auth token captured from successful registration |
+| `loginToken` | `""` | Token captured from successful login |
+| `userName` | `Tanzim SQA` | Name parameter used for user creation and updates |
+| `userJob` | `Lead QA Automation Engineer` | Job title parameter |
+| `validRegisterEmail` | `eve.holt@reqres.in` | ReqRes sample email for valid registration |
+| `validRegisterPassword` | `pistol` | ReqRes sample password for valid registration |
+| `validLoginEmail` | `eve.holt@reqres.in` | ReqRes sample email for valid login |
+| `validLoginPassword` | `cityslicka` | ReqRes sample password for valid login |
 
 ---
 
-## 🏃 Quick Start & Execution
+## How to Run the Tests
 
-### Option 1: Execute in Postman (Chrome or Desktop)
-1. Open [Postman Web](https://go.postman.co) or the Postman Desktop App.
-2. Ensure you are in your active workspace (e.g. `new api testing`).
-3. Import `ReqRes_API_Testing.postman_collection.json` and `ReqRes_Environment.postman_environment.json` (or use the already imported suite).
-4. Select the environment: **`ReqRes Production Environment`**.
-5. Click **Run Collection**, set delay to `500 ms` to respect public rate limits, and click **Run**.
+### Method 1: In Postman (Chrome or Desktop)
+1. Open Postman and navigate to your workspace.
+2. Import `ReqRes_API_Testing.postman_collection.json` and `ReqRes_Environment.postman_environment.json`.
+3. Set the active environment to **ReqRes Production Environment**.
+4. Open the Collection Runner:
+   - Select all 4 folders.
+   - Set the delay to `500 ms`.
+   - Click **Run ReqRes API Testing Suite (Automated)**.
 
-### Option 2: Execute via Newman CLI (Local Terminal)
-Make sure you have Node.js installed:
+### Method 2: Via Command Line (Newman)
+Make sure you have [Node.js](https://nodejs.org/) installed, then run:
 
 ```bash
 # Clone the repository
 git clone https://github.com/TanzimSQA/reqres-postman-api-testing.git
 cd reqres-postman-api-testing
 
-# Run tests via npm script
+# Run the test suite via npm
 npm test
 ```
 
-Or run directly with Newman:
+Or run Newman directly:
+
 ```bash
 npx newman run ReqRes_API_Testing.postman_collection.json \
   -e ReqRes_Environment.postman_environment.json \
   --delay-request 500
 ```
 
-### Option 3: Generate Rich HTML Reports
-```bash
-npm run test:report
-```
-The detailed HTML dashboard report will be saved to `./reports/ReqRes_Report.html`.
+---
+
+## CI/CD Pipeline (GitHub Actions)
+
+This repository includes an automated workflow configured in [`.github/workflows/newman-api-tests.yml`](./.github/workflows/newman-api-tests.yml).
+
+On every `push` and `pull_request` to `main`:
+1. Checks out the code and sets up Node.js.
+2. Installs Newman CLI and HTML Extra reporter.
+3. Runs the full 18-request suite against ReqRes with rate-limit pacing.
+4. Generates an HTML test report and uploads it as an artifact in the GitHub Action run summary.
 
 ---
 
-## 🔄 Continuous Integration (CI/CD)
+## Repository Files
 
-This repository includes a native GitHub Actions pipeline in [`.github/workflows/newman-api-tests.yml`](./.github/workflows/newman-api-tests.yml).
-
-- Automatically triggers on every `push` and `pull_request` to `main`.
-- Sets up Node.js, installs Newman and HTML Extra reporter.
-- Executes the entire test suite against ReqRes.
-- Uploads the HTML report artifact to the GitHub Action summary for review.
+- `ReqRes_API_Testing.postman_collection.json` - Postman Collection (v2.1.0) containing all 18 requests and assertions.
+- `ReqRes_Environment.postman_environment.json` - Postman Environment file.
+- `ReqRes_API_Testing_Documentation.pdf` - Complete documentation and test strategy report in PDF format.
+- `docs.html` - Clean HTML source used to generate the documentation PDF.
+- `generate_collection.js` - Script to programmatically build and update the Postman collection.
+- `.github/workflows/newman-api-tests.yml` - GitHub Actions CI/CD workflow configuration.
+- `package.json` - NPM scripts for one-command Newman execution.
+- `LICENSE` - MIT License.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Tanzim SQA**  
-- GitHub: [@TanzimSQA](https://github.com/TanzimSQA)
-- Focus: SQA & API Test Automation Frameworks (Postman, Newman, Playwright, Cypress)
-
----
-
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+QA & Test Automation Engineer  
+GitHub: [@TanzimSQA](https://github.com/TanzimSQA)
