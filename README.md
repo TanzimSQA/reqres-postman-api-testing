@@ -156,8 +156,11 @@ On every `push` and `pull_request` to `main`:
 
 ---
 
-## Author
+## 👨‍💻 Author
 
-**Tanzim SQA**  
-QA & Test Automation Engineer  
-GitHub: [@TanzimSQA](https://github.com/TanzimSQA)
+**Tanzim Rahman (TanzimSQA)**  
+*Software Quality Assurance (SQA) Engineer*  
+- 🌐 **Portfolio**: [https://tanzimsqa.github.io/](https://tanzimsqa.github.io/)  
+- 💼 **LinkedIn**: [https://www.linkedin.com/in/tanzimsqa/](https://www.linkedin.com/in/tanzimsqa/)  
+- 🐙 **GitHub**: [@TanzimSQA](https://github.com/TanzimSQA)  
+- 📧 **Email**: [tanzimsqa@gmail.com](mailto:tanzimsqa@gmail.com)
