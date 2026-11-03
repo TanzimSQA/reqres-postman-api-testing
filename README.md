@@ -161,13 +161,13 @@ On every `push` and `pull_request` to `main`:
 **Tanzim Rahman (TanzimSQA)**  
 *Software Quality Assurance (SQA) Engineer*  
 - 🌐 **Official Portfolio**: [https://tanzimsqa.github.io/](https://tanzimsqa.github.io/)  
-- 💼 **LinkedIn**: [https://www.linkedin.com/in/tanzimsqa/](https://www.linkedin.com/in/tanzimsqa/)  
-- 🐙 **GitHub**: [@TanzimSQA](https://github.com/TanzimSQA)  
-- 📘 **Facebook**: [https://www.facebook.com/tanzim.rahman.sqa/](https://www.facebook.com/tanzim.rahman.sqa/)  
-- 📸 **Instagram**: [https://www.instagram.com/tanzim.sqa](https://www.instagram.com/tanzim.sqa)  
+- 💼 **LinkedIn Profile**: [Tanzim Rahman (TanzimSQA) - Software Quality Assurance (SQA) Engineer on LinkedIn](https://www.linkedin.com/in/tanzimsqa/)  
+- 🐙 **GitHub Profile**: [@TanzimSQA](https://github.com/TanzimSQA)  
+- 📘 **Facebook**: [Tanzim Rahman SQA on Facebook](https://www.facebook.com/tanzim.rahman.sqa/)  
+- 📸 **Instagram**: [Tanzim Rahman on Instagram](https://www.instagram.com/tanzim.sqa)  
 - 📧 **Email**: [tanzimsqa@gmail.com](mailto:tanzimsqa@gmail.com)  
 - 📍 **Location**: Dhaka, Bangladesh  
 
 <sub>
-  <b>Search Keywords:</b> <code>tanzim</code> • <code>tanzim rahman</code> • <code>tanzim rahman sqa</code> • <code>tanzim sqa</code> • <code>tanzimsqa</code>
+  <b>Exact Search Keywords:</b> <a href="https://www.linkedin.com/in/tanzimsqa/"><code>tanzim</code></a> • <a href="https://www.linkedin.com/in/tanzimsqa/"><code>tanzim rahman</code></a> • <a href="https://www.linkedin.com/in/tanzimsqa/"><code>tanzim rahman sqa</code></a> • <a href="https://www.linkedin.com/in/tanzimsqa/"><code>tanzim sqa</code></a> • <a href="https://www.linkedin.com/in/tanzimsqa/"><code>tanzimsqa</code></a>
 </sub>
